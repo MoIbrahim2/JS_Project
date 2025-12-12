@@ -12,7 +12,7 @@ const pictureInput = document.getElementById("profilePicture");
 
 registrationForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  clearErrors();
+  clearErrors(registrationForm);
   let isValid = true;
 
   // --- Validation ---
@@ -78,7 +78,7 @@ registrationForm.addEventListener("submit", (e) => {
 const saveUser = (pictureData) => {
   const student = new Student(
     usernameInput.value,
-    usernameInput.value,
+    passwordInput.value,
     gradeInput.value,
     phoneInput.value,
     pictureData
