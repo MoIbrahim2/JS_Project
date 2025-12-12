@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Student Login</title>
+    <title>Login</title>
 
     <!-- Bootstrap 5 CSS -->
     <link
@@ -26,9 +26,25 @@
     <div class="container">
       <div class="card login-card shadow">
         <div class="card-body">
-          <h3 class="text-center mb-4">Student Login</h3>
+          <h3 class="text-center mb-4">Login</h3>
 
-          <form>
+          <!-- General Login Error -->
+          <div id="login-error" class="alert alert-danger d-none" role="alert">
+            <!-- Error messages like "Invalid credentials" will appear here -->
+          </div>
+
+          <form id="login-form">
+            <!-- Role Selection -->
+            <div class="mb-3">
+              <label for="role" class="form-label">Login as</label>
+              <select id="role" class="form-select" required>
+                <option value="" selected disabled>Select a role</option>
+                <option value="student">Student</option>
+                <option value="teacher">Teacher</option>
+              </select>
+              <div class="invalid-feedback">Please select a role.</div>
+            </div>
+
             <!-- Username -->
             <div class="mb-3">
               <label for="username" class="form-label">Username</label>
@@ -39,6 +55,7 @@
                 placeholder="Enter your username"
                 required
               />
+              <div class="invalid-feedback"></div>
             </div>
 
             <!-- Password -->
@@ -51,6 +68,7 @@
                 placeholder="Enter your password"
                 required
               />
+              <div class="invalid-feedback"></div>
             </div>
 
             <!-- Login Button -->
@@ -58,6 +76,9 @@
               <button type="submit" class="btn btn-primary">Login</button>
             </div>
           </form>
+          <p class="text-center mt-3">
+            Don't have an account? <a href="register.html">Register here</a>
+          </p>
         </div>
       </div>
     </div>
