@@ -1,5 +1,5 @@
-import { Student, Teacher } from "./classes.js";
-import { showError, clearErrors } from "./helperFunctions.js";
+import { Student, Teacher } from "../classes.js";
+import { showError, clearErrors } from "../helperFunctions.js";
 
 const loginForm = document.getElementById("login-form");
 const loginErrorDiv = document.getElementById("login-error");
@@ -51,7 +51,7 @@ loginForm.addEventListener("submit", (e) => {
 
   if (loginResult.success) {
     // On success, redirect to the correct dashboard
-    window.location.href = `${role}_dashboard.html`;
+    window.location.href = `../${role}/${role}_dashboard.html`;
   } else {
     // On failure, show a specific error message
     if (loginResult.reason === "username") {

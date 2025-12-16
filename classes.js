@@ -1,6 +1,7 @@
 const student_storage_key = "student";
 const teacher_storage_key = "teacher";
-const loged_in_user_storage_key = "logged_in_user";
+const logged_in_student_storage_key = "logged_in_student";
+const logged_in_teacher_storage_key = "logged_in_teacher";
 
 export class Student {
   constructor(username, password, grade = null, phone = null, picture = null) {
@@ -37,10 +38,13 @@ export class Student {
     }
 
     if (student.password === this.password) {
-      localStorage.setItem(loged_in_user_storage_key, JSON.stringify(student));
+      localStorage.setItem(
+        logged_in_student_storage_key,
+        JSON.stringify(student)
+      );
       return { success: true };
     } else {
-      return { success: false, reason: "password" }; // Incorrect password
+      return { success: false, reason: "password" };
     }
   }
 }
@@ -61,10 +65,14 @@ export class Teacher {
     }
 
     if (teacher.password === this.password) {
-      localStorage.setItem(loged_in_user_storage_key, JSON.stringify(teacher));
+      localStorage.setItem(
+        logged_in_teacher_storage_key,
+        JSON.stringify(teacher)
+      );
       return { success: true };
     } else {
       return { success: false, reason: "password" };
     }
   }
+  createExam() {}
 }

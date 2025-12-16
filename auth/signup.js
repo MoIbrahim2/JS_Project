@@ -1,5 +1,5 @@
-import { Student } from "./classes.js";
-import { showError, clearErrors } from "./helperFunctions.js";
+import { Student } from "../classes.js";
+import { showError, clearErrors } from "../helperFunctions.js";
 const user_storage_key = "student";
 const registrationForm = document.getElementById("registration-form");
 
