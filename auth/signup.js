@@ -58,21 +58,10 @@ registrationForm.addEventListener("submit", (e) => {
   }
 
   // --- Process and Save Data ---
-  const pictureFile = pictureInput.files[0];
-  const reader = new FileReader();
-
-  // This function runs after the file is read
-  reader.onload = (event) => {
-    const pictureDataUrl = event.target.result;
-    saveUser(pictureDataUrl);
-  };
-
-  // If a picture was selected, read it. Otherwise, save user with no picture.
-  if (pictureFile) {
-    reader.readAsDataURL(pictureFile);
-  } else {
-    saveUser(null); // No picture provided
-  }
+  // Get the image URL from the new text input
+  const imageUrl = document.getElementById("profileImageUrl").value;
+  saveUser(imageUrl || null); // Pass the URL, or null if the input is empty
+  alert("Successfull signup");
 });
 
 const saveUser = (pictureData) => {

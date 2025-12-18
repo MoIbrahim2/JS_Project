@@ -4,7 +4,7 @@ export const createNewExam = () => {
   const examDuration = document.getElementById("exam-duration").value;
   const numQuestions = document.getElementById("num-questions").value;
   const examGrade = document.getElementById("exam-grade").value;
-  const teacherId = JSON.parse(localStorage.getItem("logged_in_user")).id;
+  const teacherId = JSON.parse(localStorage.getItem("logged_in_teacher")).id;
 
   const examSetup = {
     name: examName,
