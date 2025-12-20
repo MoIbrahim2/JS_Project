@@ -115,6 +115,24 @@ document.addEventListener("DOMContentLoaded", () => {
   renderStudentResults();
 });
 
+// Dark Mode Toggle
+const darkModeSwitch = document.getElementById("darkModeSwitch");
+darkModeSwitch.addEventListener("change", () => {
+  document.body.classList.toggle("dark-mode");
+  // Save preference
+  if (document.body.classList.contains("dark-mode")) {
+    localStorage.setItem("darkMode", "enabled");
+  } else {
+    localStorage.removeItem("darkMode");
+  }
+});
+
+// Check for saved dark mode preference
+if (localStorage.getItem("darkMode") === "enabled") {
+  document.body.classList.add("dark-mode");
+  darkModeSwitch.checked = true;
+}
+
 manageExamsTabButton.addEventListener("click", (e) => {
   e.preventDefault();
   renderTeacherExams();
@@ -122,4 +140,10 @@ manageExamsTabButton.addEventListener("click", (e) => {
 studentResultTabButton.addEventListener("click", (e) => {
   e.preventDefault();
   renderStudentResults();
+});
+
+const logoutBtn = document.getElementById("logout-btn");
+logoutBtn.addEventListener("click", () => {
+  localStorage.removeItem("logged_in_teacher");
+  window.location.href = "../auth/login.html";
 });

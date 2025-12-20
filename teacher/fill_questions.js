@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const questionScoreEl = document.getElementById("question-score");
   const prevBtn = document.getElementById("prev-btn");
   const nextBtn = document.getElementById("next-btn");
+  const questionImageUrlEl = document.getElementById("question-image-url");
 
   let currentQuestionIndex = 0;
   let isUpdate = false;
@@ -55,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Clear previous state
     questionTextEl.value = "";
+    questionImageUrlEl.value = "";
     optionsContainerEl.innerHTML = "";
     correctAnswerEl.innerHTML = "";
     questionScoreEl.value = "";
@@ -64,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const question = examData.questions[index];
     if (question) {
       questionTextEl.value = question.text || "";
+      questionImageUrlEl.value = question.imageUrl || "";
       questionScoreEl.value = question.score || "";
       // Re-create the options for this question
       optionsContainerEl.innerHTML = "";
@@ -112,6 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function saveCurrentQuestion() {
     const text = questionTextEl.value;
+    const imageUrl = questionImageUrlEl.value;
     const options = Array.from(
       optionsContainerEl.querySelectorAll('input[type="text"]')
     ).map((input) => input.value);
@@ -132,6 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     examData.questions[currentQuestionIndex] = {
       text,
+      imageUrl,
       options,
       correctAnswer,
       score,
