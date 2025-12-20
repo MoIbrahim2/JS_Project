@@ -92,32 +92,17 @@
           <div class="card mb-4">
             <div class="card-body">
               <h5 class="card-title">Upcoming Exams</h5>
-              <p class="card-text text-muted">
-                These exams are ready for you to take.
-              </p>
-              <div id="upcoming-exams-list" class="list-group">
-                <!-- Placeholder for an upcoming exam -->
-                <a
-                  href="#"
-                  class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+              <div id="upcoming-exams-container">
+                <p
+                  id="no-upcoming-exams"
+                  class="text-muted"
+                  style="display: none"
                 >
-                  <div>
-                    <h6 class="mb-1">Biology Midterm</h6>
-                    <small class="text-muted">Duration: 60 minutes</small>
-                  </div>
-                  <button class="btn btn-primary btn-sm">Start Exam</button>
-                </a>
-                <!-- Another placeholder -->
-                <a
-                  href="#"
-                  class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-                >
-                  <div>
-                    <h6 class="mb-1">History Final</h6>
-                    <small class="text-muted">Duration: 90 minutes</small>
-                  </div>
-                  <button class="btn btn-primary btn-sm">Start Exam</button>
-                </a>
+                  You have no upcoming exams at the moment.
+                </p>
+                <div id="upcoming-exams-list" class="list-group">
+                  <!-- Upcoming exams will be dynamically inserted here -->
+                </div>
               </div>
             </div>
           </div>
@@ -126,30 +111,28 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Completed Exams</h5>
-              <div class="table-responsive">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>Exam Name</th>
-                      <th>Score</th>
-                      <th>Date Taken</th>
-                    </tr>
-                  </thead>
-                  <tbody id="completed-exams-body">
-                    <!-- Placeholder for a completed exam -->
-                    <tr>
-                      <td>Animal Quiz #1</td>
-                      <td>8 / 10</td>
-                      <td>Dec 15, 2025</td>
-                    </tr>
-                    <!-- Another placeholder -->
-                    <tr>
-                      <td>Planets Quiz #1</td>
-                      <td>9 / 10</td>
-                      <td>Dec 12, 2025</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div id="completed-exams-container">
+                <p
+                  id="no-completed-exams"
+                  class="text-muted"
+                  style="display: none"
+                >
+                  You have not completed any exams yet.
+                </p>
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Exam Name</th>
+                        <th>Score</th>
+                        <th>Date Taken</th>
+                      </tr>
+                    </thead>
+                    <tbody id="completed-exams-body">
+                      <!-- Completed exams will be dynamically inserted here -->
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>

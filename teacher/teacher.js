@@ -16,6 +16,46 @@ createExamForm.addEventListener("submit", (e) => {
   createNewExam();
 });
 
+const assignStudentModal = new bootstrap.Modal(
+  document.getElementById("assignStudentModal")
+);
+const studentSelect = document.getElementById("student-select");
+const assignExamIdInput = document.getElementById("assign-exam-id");
+const assignStudentForm = document.getElementById("assign-student-form");
+
+assignStudentForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const studentId = studentSelect.value;
+  const examId = assignExamIdInput.value;
+
+  if (!studentId) {
+    alert("Please select a student.");
+    return;
+  }
+
+  const studentUpcomingExams =
+    JSON.parse(localStorage.getItem("student_upcoming_exams")) || [];
+
+  const assignmentExists = studentUpcomingExams.some(
+    (assignment) =>
+      assignment.studentId === studentId && assignment.examId === examId
+  );
+
+  if (assignmentExists) {
+    alert("This exam is already assigned to this student.");
+    return;
+  }
+
+  studentUpcomingExams.push({ studentId, examId });
+  localStorage.setItem(
+    "student_upcoming_exams",
+    JSON.stringify(studentUpcomingExams)
+  );
+
+  alert("Exam assigned successfully!");
+  assignStudentModal.hide();
+});
+
 const addExam = (exam) => {
   const tableBody = document.getElementById("exams-table-body");
   if (!tableBody) return;
@@ -30,7 +70,8 @@ const addExam = (exam) => {
     <td>${exam.grade}</td>
     <td>
       <button class="btn btn-sm btn-info update-btn me-2">Update</button>
-      <button class="btn btn-sm btn-danger delete-btn">Delete</button>
+      <button class="btn btn-sm btn-danger delete-btn me-2">Delete</button>
+      <button class="btn btn-sm btn-success assign-btn">Assign</button>
     </td>
   `;
 
@@ -38,6 +79,27 @@ const addExam = (exam) => {
   updateButton.addEventListener("click", () => {
     localStorage.setItem("currentExamForUpdate", JSON.stringify(exam));
     window.location.href = "fill_questions.html";
+  });
+
+  const assignButton = row.querySelector(".assign-btn");
+
+  assignButton.addEventListener("click", () => {
+    const examGrade = exam.grade;
+    const filteredStudents = students.filter(
+      (student) => student.grade == examGrade
+    );
+
+    studentSelect.innerHTML =
+      '<option value="" selected disabled>Select a student</option>';
+    filteredStudents.forEach((student) => {
+      const option = document.createElement("option");
+      option.value = student.id;
+      option.textContent = student.username;
+      studentSelect.appendChild(option);
+    });
+
+    assignExamIdInput.value = exam.examId;
+    assignStudentModal.show();
   });
 
   const deleteButton = row.querySelector(".delete-btn");
@@ -56,15 +118,25 @@ const addExam = (exam) => {
 
 const renderTeacherExams = () => {
   const tableBody = document.getElementById("exams-table-body");
+  const noExamsMessage = document.getElementById("no-exams-message");
+  const examsTable = document.getElementById("exams-table");
+
   if (tableBody) {
     tableBody.innerHTML = "";
   }
 
-  exams.forEach((exam) => {
-    if (exam.teacherId === teacher.id) {
+  const teacherExams = exams.filter((exam) => exam.teacherId === teacher.id);
+
+  if (teacherExams.length === 0) {
+    noExamsMessage.style.display = "block";
+    examsTable.style.display = "none";
+  } else {
+    noExamsMessage.style.display = "none";
+    examsTable.style.display = "table";
+    teacherExams.forEach((exam) => {
       addExam(exam);
-    }
-  });
+    });
+  }
 };
 
 const addResult = (result) => {
