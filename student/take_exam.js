@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (timeLeft <= 0) {
         clearInterval(questionTimer);
-        // Mark as incorrect and move to next question
+
         handleAnswer(false);
       }
     }, 1000);
@@ -195,7 +195,6 @@ document.addEventListener("DOMContentLoaded", () => {
     studentExams.push(newResult);
     localStorage.setItem("student_exam", JSON.stringify(studentExams));
 
-    // Remove from upcoming exams
     let upcomingExams =
       JSON.parse(localStorage.getItem("student_upcoming_exams")) || [];
     upcomingExams = upcomingExams.filter(

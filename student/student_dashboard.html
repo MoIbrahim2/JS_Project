@@ -59,7 +59,6 @@
     </style>
   </head>
   <body>
-    <!-- Navbar -->
     <nav class="navbar navbar-dark bg-primary">
       <div class="container-fluid">
         <span class="navbar-brand mb-0 h1">Student Dashboard</span>
@@ -69,10 +68,8 @@
       </div>
     </nav>
 
-    <!-- Main Content -->
     <div class="container mt-5">
       <div class="row">
-        <!-- Profile Section -->
         <div class="col-lg-4 mb-4">
           <div class="profile-section">
             <img
@@ -86,9 +83,7 @@
           </div>
         </div>
 
-        <!-- Exams Section -->
         <div class="col-lg-8">
-          <!-- Upcoming Exams -->
           <div class="card mb-4">
             <div class="card-body">
               <h5 class="card-title">Upcoming Exams</h5>
@@ -100,14 +95,11 @@
                 >
                   You have no upcoming exams at the moment.
                 </p>
-                <div id="upcoming-exams-list" class="list-group">
-                  <!-- Upcoming exams will be dynamically inserted here -->
-                </div>
+                <div id="upcoming-exams-list" class="list-group"></div>
               </div>
             </div>
           </div>
 
-          <!-- Completed Exams -->
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Completed Exams</h5>
@@ -128,9 +120,7 @@
                         <th>Date Taken</th>
                       </tr>
                     </thead>
-                    <tbody id="completed-exams-body">
-                      <!-- Completed exams will be dynamically inserted here -->
-                    </tbody>
+                    <tbody id="completed-exams-body"></tbody>
                   </table>
                 </div>
               </div>

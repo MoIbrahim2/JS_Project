@@ -5,13 +5,11 @@ const loginForm = document.getElementById("login-form");
 const loginErrorDiv = document.getElementById("login-error");
 
 loginForm.addEventListener("submit", (e) => {
-  e.preventDefault(); // Prevent the form from reloading the page
+  e.preventDefault();
 
-  // Clear previous errors using the helper function
   clearErrors(loginForm);
   loginErrorDiv.classList.add("d-none");
 
-  // Get the current values from the form fields
   const roleInput = document.getElementById("role");
   const usernameInput = document.getElementById("username");
   const passwordInput = document.getElementById("password");
@@ -22,7 +20,6 @@ loginForm.addEventListener("submit", (e) => {
 
   let isValid = true;
 
-  // Basic validation
   if (!role) {
     showError(roleInput, "Please select a role.");
     isValid = false;
@@ -50,16 +47,13 @@ loginForm.addEventListener("submit", (e) => {
   const loginResult = user.login();
 
   if (loginResult.success) {
-    // On success, redirect to the correct dashboard
     window.location.href = `../${role}/${role}_dashboard.html`;
   } else {
-    // On failure, show a specific error message
     if (loginResult.reason === "username") {
       showError(usernameInput, "No user found with this username.");
     } else if (loginResult.reason === "password") {
       showError(passwordInput, "Incorrect password. Please try again.");
     } else {
-      // Fallback for any other errors
       loginErrorDiv.textContent = "An unknown error occurred.";
       loginErrorDiv.classList.remove("d-none");
     }

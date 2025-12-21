@@ -61,7 +61,7 @@ const addExam = (exam) => {
   if (!tableBody) return;
 
   const row = document.createElement("tr");
-  row.setAttribute("data-exam-id", exam.examId); // Set an attribute for easy selection
+  row.setAttribute("data-exam-id", exam.examId);
 
   row.innerHTML = `
     <td>${exam.name}</td>
@@ -147,7 +147,6 @@ const addResult = (result) => {
   const exam = exams.find((exam) => exam.examId === result.examId);
   const row = document.createElement("tr");
 
-  // Format the date for better readability
   const dateTaken = new Date(result.dateTaken).toLocaleDateString();
   const score = result.score;
 
@@ -169,7 +168,7 @@ const renderStudentResults = () => {
   const tableBody = document.getElementById("results-table-body");
 
   if (tableBody) {
-    tableBody.innerHTML = ""; // Clear existing rows
+    tableBody.innerHTML = "";
   }
 
   const teacherResults = results.filter((result) =>
@@ -187,11 +186,10 @@ document.addEventListener("DOMContentLoaded", () => {
   renderStudentResults();
 });
 
-// Dark Mode Toggle
 const darkModeSwitch = document.getElementById("darkModeSwitch");
 darkModeSwitch.addEventListener("change", () => {
   document.body.classList.toggle("dark-mode");
-  // Save preference
+
   if (document.body.classList.contains("dark-mode")) {
     localStorage.setItem("darkMode", "enabled");
   } else {
@@ -199,7 +197,6 @@ darkModeSwitch.addEventListener("change", () => {
   }
 });
 
-// Check for saved dark mode preference
 if (localStorage.getItem("darkMode") === "enabled") {
   document.body.classList.add("dark-mode");
   darkModeSwitch.checked = true;
