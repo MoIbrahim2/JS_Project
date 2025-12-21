@@ -219,3 +219,63 @@ logoutBtn.addEventListener("click", () => {
   localStorage.removeItem("logged_in_teacher");
   window.location.href = "../auth/login.html";
 });
+
+const viewAnswersModal = document.getElementById("viewAnswersModal");
+const viewAnswersModalBody = document.getElementById("view-answers-modal-body");
+const closeModalBtn = viewAnswersModal.querySelector(".btn-close");
+
+function showViewAnswersModal() {
+  viewAnswersModal.style.display = "block";
+  viewAnswersModal.classList.add("show");
+  document.body.classList.add("modal-open");
+  const backdrop = document.createElement("div");
+  backdrop.className = "modal-backdrop fade show";
+  document.body.appendChild(backdrop);
+}
+
+function hideViewAnswersModal() {
+  viewAnswersModal.style.display = "none";
+  viewAnswersModal.classList.remove("show");
+  document.body.classList.remove("modal-open");
+  const backdrop = document.querySelector(".modal-backdrop");
+  if (backdrop) {
+    document.body.removeChild(backdrop);
+  }
+}
+
+closeModalBtn.addEventListener("click", hideViewAnswersModal);
+viewAnswersModal.addEventListener("click", (e) => {
+  if (e.target === viewAnswersModal) {
+    hideViewAnswersModal();
+  }
+});
+
+document.getElementById("results-table-body").addEventListener("click", (e) => {
+  if (e.target.classList.contains("review-btn")) {
+    const resultId = e.target.getAttribute("data-result-id");
+    const studentExams = JSON.parse(localStorage.getItem("student_exam")) || [];
+    const result = studentExams.find((r) => r.id == resultId);
+
+    if (result && result.answers.length !== 0) {
+      viewAnswersModalBody.innerHTML = "";
+      result.answers.forEach((answer, index) => {
+        const answerEl = document.createElement("div");
+        answerEl.classList.add("mb-3", "p-3", "border", "rounded");
+        answerEl.innerHTML = `
+          <p><strong>Question ${index + 1}:</strong> ${answer.question}</p>
+          <p><strong>Your Answer:</strong> ${answer.selected}</p>
+          <p><strong>Correct Answer:</strong> ${answer.correct}</p>
+          <p><strong>Result:</strong> ${
+            answer.isCorrect
+              ? '<span class="text-success">Correct</span>'
+              : '<span class="text-danger">Incorrect</span>'
+          }</p>
+        `;
+        viewAnswersModalBody.appendChild(answerEl);
+      });
+      showViewAnswersModal();
+    } else {
+      alert("No answers found for this exam.");
+    }
+  }
+});

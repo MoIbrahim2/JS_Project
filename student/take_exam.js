@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const optionsContainerEl = document.getElementById("options-container");
   const nextBtn = document.getElementById("next-btn");
   const timerBarEl = document.getElementById("timer-bar");
+  const timerDisplayEl = document.getElementById("timer-display");
   const examContainer = document.getElementById("exam-container");
   const resultContainer = document.getElementById("result-container");
   const finalScoreEl = document.getElementById("final-score");
@@ -43,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let score = 0;
   let questionTimer;
   let randomizedQuestions;
+  let studentAnswers = [];
 
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -101,9 +103,20 @@ document.addEventListener("DOMContentLoaded", () => {
     timerBarEl.style.width = "100%";
     timerBarEl.classList.remove("bg-danger");
 
+    function updateTimerDisplay() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = Math.floor(timeLeft % 60);
+      timerDisplayEl.textContent = `${minutes
+        .toString()
+        .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+    }
+
+    updateTimerDisplay();
+
     clearInterval(questionTimer);
     questionTimer = setInterval(() => {
       timeLeft--;
+      updateTimerDisplay();
       const percentage = (timeLeft / questionTime) * 100;
       timerBarEl.style.width = `${percentage}%`;
 
@@ -123,6 +136,13 @@ document.addEventListener("DOMContentLoaded", () => {
     clearInterval(questionTimer);
     const question = randomizedQuestions[currentQuestionIndex];
     const isCorrect = selectedOptionIndex === question.correctAnswer;
+
+    studentAnswers.push({
+      question: question.text,
+      selected: question.options[selectedOptionIndex],
+      correct: question.options[question.correctAnswer],
+      isCorrect: isCorrect,
+    });
 
     Array.from(optionsContainerEl.children).forEach((button, index) => {
       button.disabled = true;
@@ -169,11 +189,22 @@ document.addEventListener("DOMContentLoaded", () => {
       examId: exam.examId,
       score: finalPercentage,
       dateTaken: new Date().toISOString(),
-      answers: [], // Can be extended to store answers
+      answers: studentAnswers,
     };
 
     studentExams.push(newResult);
     localStorage.setItem("student_exam", JSON.stringify(studentExams));
+
+    // Remove from upcoming exams
+    let upcomingExams =
+      JSON.parse(localStorage.getItem("student_upcoming_exams")) || [];
+    upcomingExams = upcomingExams.filter(
+      (ue) => !(ue.studentId == student.id && ue.examId == exam.examId)
+    );
+    localStorage.setItem(
+      "student_upcoming_exams",
+      JSON.stringify(upcomingExams)
+    );
   }
 
   nextBtn.addEventListener("click", () => {

@@ -40,13 +40,20 @@
   <body>
     <div class="container mt-5">
       <div id="exam-container">
-        <div id="timer-bar-container" class="progress mb-4">
+        <div class="d-flex align-items-center mb-4">
           <div
-            id="timer-bar"
-            class="progress-bar"
-            role="progressbar"
-            style="width: 100%"
-          ></div>
+            id="timer-bar-container"
+            class="progress flex-grow-1"
+            style="height: 20px"
+          >
+            <div
+              id="timer-bar"
+              class="progress-bar"
+              role="progressbar"
+              style="width: 100%"
+            ></div>
+          </div>
+          <span id="timer-display" class="ms-3 fw-bold"></span>
         </div>
         <h2 id="exam-title"></h2>
         <div id="question-container" class="card p-4">
