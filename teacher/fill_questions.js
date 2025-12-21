@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (examForUpdate) {
     isUpdate = true;
     examData = examForUpdate;
-    // To prevent issues on reload, we'll work with a temporary setup item
+
     localStorage.setItem("currentExamSetup", JSON.stringify(examData));
     localStorage.removeItem("currentExamForUpdate");
   } else {
@@ -35,16 +35,14 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // Ensure questions array exists and has the correct length
   if (!examData.questions) {
     examData.questions = [];
   }
-  // This ensures that we can fill questions up to the total number, even if they don't exist yet.
+
   while (examData.questions.length < examData.totalQuestions) {
     examData.questions.push({});
   }
 
-  // Initialize with at least two options
   addOption();
   addOption();
 
@@ -54,13 +52,12 @@ document.addEventListener("DOMContentLoaded", () => {
       examData.totalQuestions
     }`;
 
-    // Clear previous state
     questionTextEl.value = "";
     questionImageUrlEl.value = "";
     optionsContainerEl.innerHTML = "";
     correctAnswerEl.innerHTML = "";
     questionScoreEl.value = "";
-    addOption(); // Add first two default options
+    addOption();
     addOption();
 
     const question = examData.questions[index];
@@ -68,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
       questionTextEl.value = question.text || "";
       questionImageUrlEl.value = question.imageUrl || "";
       questionScoreEl.value = question.score || "";
-      // Re-create the options for this question
+
       optionsContainerEl.innerHTML = "";
       if (question.options && question.options.length > 0) {
         question.options.forEach((opt, optIndex) => {
@@ -80,7 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       correctAnswerEl.value = question.correctAnswer;
     } else {
-      // If no question data exists at all, just show empty fields
       addOption();
       addOption();
     }
